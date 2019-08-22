@@ -19,6 +19,19 @@ spec:
         image: eu.gcr.io/PROJECTID/queryapp:CONTAINERTAG
         ports:
         - containerPort: 5003
-        args: ['0.0.0.0', '5003','http://queryapp:5003/query/yml_data']
       restartPolicy: Always
-
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: queryapp
+  labels:
+    app: queryapp
+  namespace: dev
+spec:
+  ports:
+  - port: 5003
+    protocol: TCP
+  selector:
+    app: queryapp
+---
