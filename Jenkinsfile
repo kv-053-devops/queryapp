@@ -1,7 +1,7 @@
 pipeline {
 
   environment {
-    PROJECT = "demo2-248908"
+    PROJECT = "terra-250516"
     APP_NAME = "queryapp"
     STORAGE_CREDS = "${PROJECT}"
     FE_SVC_NAME = "${APP_NAME}-frontend"
