@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: queryapp
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: queryapp
+  template:
+    metadata:
+      labels:
+        app: queryapp
+    spec:
+      hostname: queryapp
+      containers:
+      - name: queryapp
+        image: eu.gcr.io/PROJECTID/queryapp:CONTAINERTAG
+        ports:
+        - containerPort: 5002
+        args: ['0.0.0.0', '5002','http://queryapp:5003/query/yml_data']
+      restartPolicy: Always

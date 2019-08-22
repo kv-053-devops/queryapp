@@ -7,7 +7,7 @@ pipeline {
     FE_SVC_NAME = "${APP_NAME}-frontend"
     CLUSTER = "demo2-gke-cluster"
     CLUSTER_ZONE = "europe-west3-a"
-    IMAGE_TAG = "eu.gcr.io/${PROJECT}/${APP_NAME}:${BUILD_NUMBER}"
+    IMAGE_TAG = "eu.gcr.io/${PROJECT}/${APP_NAME}:${GIT_COMMIT}"
     JENKINS_CRED = "${PROJECT}"
     APP_REPO="https://github.com/kv-053-devops/queryapp.git"
     NAMESPACE="dev"
@@ -96,10 +96,12 @@ spec:
 			//      }
       //   }
     }}}
-        stage('Deploy') {
-      steps {
+        steps {
         container('kubectl') {
-         sh "kubectl get deployments --namespace=${NAMESPACE} | grep ${APP_NAME} &&  kubectl patch deployment ${APP_NAME} --namespace=${NAMESPACE} || kubectl create deployment ${APP_NAME} --image=${IMAGE_TAG} --namespace=${NAMESPACE}"
+         sh """sed -i "s/CONTAINERTAG/${GIT_COMMIT}/g" deployment_dev """
+         sh """sed -i "s/PROJECTID/${PROJECT}/g" deployment_dev """
+         sh "kubectl apply -f deployment_dev"
+         sh "";
          //sh "kubectl get pods";
          //sh "kubectl expose deployment hello-web --type=LoadBalancer --port 81 --target-port 8081";
         }
