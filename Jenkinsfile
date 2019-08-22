@@ -72,6 +72,7 @@ spec:
         container('python'){
             sh "pip3 install -r requirements.txt";
             sh "python -m py_compile flask_query_api.py";
+	    sh "python -m py_compile query_class.py";
           }
         }
     }
