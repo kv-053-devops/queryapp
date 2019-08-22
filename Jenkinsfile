@@ -96,6 +96,7 @@ spec:
 			//      }
       //   }
     }}}
+    stage('Deploy') {
         steps {
         container('kubectl') {
          sh """sed -i "s/CONTAINERTAG/${GIT_COMMIT}/g" deployment_dev """
@@ -108,5 +109,6 @@ spec:
     } 
 }
 
+}
 }
 
