@@ -3,7 +3,7 @@ import yaml
 
 class Query(object):
     def __init__(self,symbols,query_type,day_range = 0,time_interval = 0):
-        self.config_api_url = "http://127.0.0.1:5004/conf/query"
+        self.config_api_url = "http://cfgmanapp.dev.svc:5004/conf/query"
         self.symbols = symbols
         self.query_type = query_type
         self.day_range = day_range
