@@ -6,7 +6,7 @@ Summary:        Trading app query part
 Group:          query_app
 BuildArch:      noarch
 License:        GPL
-URL:            https://github.com/c4n2012/python_hw/tree/flask_app/query_app
+URL:            https://github.com/kv-053-devops/queryapp.git
 Source0:        query-1.0.tar.gz
 
 %description

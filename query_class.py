@@ -1,18 +1,24 @@
 import requests
 import yaml
 
+req_timeout = 30
+
 class Query(object):
-    def __init__(self,symbols,query_type,day_range = 0,time_interval = 0):
-        self.config_api_url = "http://127.0.0.1:5004/conf/query"
+    def __init__(self,config_api_url,symbols,query_type,day_range = 0,time_interval = 0):
+        self.config_api_url = config_api_url
         self.symbols = symbols
         self.query_type = query_type
         self.day_range = day_range
         self.time_interval = time_interval
 
     def make_query(self):
-        res = requests.get(self.url_constructor())
-        data = res.json()
-        yml_data = yaml.dump(data)
+        try: 
+            res = requests.get(self.url_constructor(), timeout=req_timeout)
+            data = res.json()
+            yml_data = yaml.dump(data)
+        except: 
+            print(res)
+            return 'error in getting response from remote server'
         return yml_data
 
     # {remote_api_url: ..., query_template: ..., remote_api_token: ...}
@@ -30,6 +36,10 @@ class Query(object):
 
     def get_config(self):
         payload = "query_type=" + self.query_type
-        res = requests.get(self.config_api_url, params=payload)
+        try:
+            res = requests.get(self.config_api_url, params=payload, timeout=req_timeout)
+        except:
+            print(res)
+            return 'error in getting response from config manager service'
         # print(res.json())
         return res.json()
