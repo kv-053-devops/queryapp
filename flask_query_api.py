@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 import yaml
-from query_class import Query
+from . query_class import Query
 
 
 app = Flask(__name__)
