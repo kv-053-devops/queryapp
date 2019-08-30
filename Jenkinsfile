@@ -79,8 +79,7 @@ spec:
         steps {
         container('python'){
             sh "pip3 install -r requirements.txt";
-            sh "python -m py_compile flask_query_api.py";
-	    sh "python -m py_compile query_class.py";
+            sh "python3 unit_test.py";
           }
         }
     }
