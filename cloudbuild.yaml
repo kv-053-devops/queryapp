@@ -5,7 +5,8 @@ steps:
   entrypoint: /bin/sh
   args:
   - -c
-  - 'pip3 install -r ./requirements.txt && python3 unit_test.py -v'
+  - 'pip3 install -r ./requirements.txt '
+  - 'python3 unit_test.py -v'
 
 # This step builds the container image.
 - name: 'gcr.io/cloud-builders/docker'
