@@ -1,9 +1,9 @@
 steps:
 # This step runs the unit tests on the app
-- name: 'python:3.6-alpine'
+- name: python:3.6
   id: Prepearing for UnitTests
   args: ['pip3', 'install', '-r', './requirements.txt']
-- name: python:3.7
+- name: python:3.6
   id: Running UnitTests
   args: ['python', 'unit_test.py']  
   
