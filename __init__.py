@@ -1,1 +1,1 @@
-from .flask_query_api.py import Query
+from .flask_query_api import Query
