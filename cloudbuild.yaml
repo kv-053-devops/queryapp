@@ -6,7 +6,7 @@ steps:
   args:
   - -c
   - 'pip3 install -r ./requirements.txt '
-  # - 'python3 unit_test.py -v'
+  - 'python3 unit_test.py -v'
 
 
 # This step builds the container image.
