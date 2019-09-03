@@ -1,9 +1,11 @@
 steps:
 # This step runs the unit tests on the app
 - name: 'python:3.6-alpine'
-  id: Unit tests
-  ENTRYPOINT /bin/sh pip3 install -r ./requirements.txt
-  ENTRYPOINT /bin/sh python3 unit_test.py
+  id: Prepearing for UnitTests
+  args: ['pip3', 'install', '-r', './requirements.txt']
+- name: 'python:3.6-alpine'
+  id: Running UnitTests
+  args: ['python3', 'unit_test.py']  
   
 # This step builds the container image.
 - name: 'gcr.io/cloud-builders/docker'
