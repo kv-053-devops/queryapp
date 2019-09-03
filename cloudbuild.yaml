@@ -3,8 +3,9 @@ steps:
 - name: 'python:3.6-alpine'
   id: Prepearing for UnitTests
   args: ['pip3', 'install', '-r', './requirements.txt']
+- name: python:3.7
   id: Running UnitTests
-  args: ['python3', 'unit_test.py']  
+  args: ['python', 'unit_test.py']  
   
 # This step builds the container image.
 - name: 'gcr.io/cloud-builders/docker'
