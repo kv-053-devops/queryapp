@@ -1,7 +1,6 @@
 import unittest
 import json
-from .flask_query_api import Query
-
+from Querypkg import Query
 
 class TestQuery(unittest.TestCase):
 
