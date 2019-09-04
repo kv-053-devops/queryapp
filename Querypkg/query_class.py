@@ -2,7 +2,7 @@ import requests
 import yaml
 
 class Query(object):
-    def __init__(self,symbols,query_type,day_range = 0,time_interval = 0,config_api_url):
+    def __init__(self,symbols,query_type,config_api_url,day_range = 0,time_interval = 0):
         self.config_api_url = config_api_url
         self.symbols = symbols
         self.query_type = query_type
