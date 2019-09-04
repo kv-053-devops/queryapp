@@ -26,7 +26,7 @@ def receive_yml_data():
 
         yml_req_src = request.get_data(cache=True, as_text=True)
         yml_data = yaml.load(yml_req_src,Loader=yaml.FullLoader)
-        query_obj = Query(yml_data['symbols'],yml_data['query_type'])
+        query_obj = Query(yml_data['symbols'],yml_data['query_type'],"http://cfgmanapp.dev.svc:5004/conf/query")
 
         if query_obj.query_type == 'intraday':
             query_obj.day_range = yml_data['day_range']
