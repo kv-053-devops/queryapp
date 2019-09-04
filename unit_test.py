@@ -5,8 +5,8 @@ from Querypkg import Query
 class TestQuery(unittest.TestCase):
 
     def setUp(self):
-        self.test_realtime_query = Query(["AAPL","FB"],"realtime")
-        self.test_intraday_query = Query(["AAPL"],"intraday","2","60")
+        self.test_realtime_query = Query(["AAPL","FB"],"http://cfgmanapp.dev.svc:5004/conf/query","realtime")
+        self.test_intraday_query = Query(["AAPL"],"http://cfgmanapp.dev.svc:5004/conf/query","intraday","2","60")
 
 class TestQueryReturn(TestQuery):
     # def test_object_creation_and_exeption_in_get_config_function(self):
