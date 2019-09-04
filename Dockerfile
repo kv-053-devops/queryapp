@@ -1,6 +1,7 @@
 FROM python:3.6-alpine
 
-COPY flask_query_api.py requirements.txt /home/app/
+COPY flask_query_api.py requirements.txt Querypkg /home/app/
+
 
 RUN adduser -D -h /home/app app && pip3 install -r /home/app/requirements.txt
 
