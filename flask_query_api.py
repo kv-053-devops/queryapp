@@ -2,17 +2,18 @@ from flask import Flask, request, jsonify
 import yaml
 import requests
 import sys
+import os
 from Querypkg import Query
 #from .query_class import Query
 
-if len(sys.argv) != 1 :
-    app_run_address = sys.argv[1]
-    app_run_port = sys.argv[2]
-    config_api_url = sys.argv[3]
-else:
-    app_run_address = "0.0.0.0"
-    app_run_port = "5003"
-    config_api_url = "http://cfgmanapp.dev.svc:5004/conf/query"
+# if len(sys.argv) != 1 :
+#     app_run_address = sys.argv[1]
+#     app_run_port = sys.argv[2]
+#     config_api_url = sys.argv[3]
+# else:
+    app_run_address = os.environ.get('APP_ADDRESS', '0.0.0.0')
+    app_run_port = os.environ.get('APP_PORT', '5003')
+    config_api_url = os.environ.get('CONFIG_API_URL', 'http://cfgmanapp.dev.svc:5004/conf/query')
 
 
 app = Flask(__name__)
