@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: queryapp
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: queryapp
+  template:
+    metadata:
+      labels:
+        app: queryapp
+    spec:
+      hostname: queryapp
+      containers:
+      - name: queryapp
+        image: eu.gcr.io/$PROJECT_ID/queryapp:$SHORT_SHA
+        ports:
+        - containerPort: 5003
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: queryapp
+  labels:
+    app: queryapp
+  namespace: dev
+spec:
+  ports:
+  - port: 5003
+    protocol: TCP
+  selector:
+    app: queryapp
+---
