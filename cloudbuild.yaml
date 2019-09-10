@@ -26,5 +26,5 @@ steps:
 #file for bucket
 artifacts:
   objects:
-    location: 'gs://$PROJECT_ID-spinnaker-conf/$PROJECT_ID/'
+    location: 'gs://$PROJECT_ID-spinnaker-conf/queryapp/'
     paths: ['kub_dev.yaml', 'kub_prod.yaml']
