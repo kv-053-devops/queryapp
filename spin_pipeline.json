@@ -1,0 +1,55 @@
+{
+  "expectedArtifacts": [
+    {
+      "defaultArtifact": {
+        "customKind": true,
+        "id": "9cb07be3-3aab-4860-b0e8-52d85a305f47"
+      },
+      "id": "ec48bddf-c6b6-4888-b4e3-42b2f9c73076",
+      "matchArtifact": {
+        "id": "b9c52cbd-5619-4f47-a4dd-14bede102410",
+        "name": "gs://gcpssproject-248014-spinnaker-conf/queryapp/kub_dev.yaml",
+        "type": "gcs/object"
+      },
+      "useDefaultArtifact": false,
+      "usePriorArtifact": false
+    }
+  ],
+  "keepWaitingPipelines": false,
+  "lastModifiedBy": "anonymous",
+  "limitConcurrent": true,
+  "stages": [
+    {
+      "account": "default",
+      "cloudProvider": "kubernetes",
+      "manifestArtifactAccount": "gcs-gcpssproject-248014",
+      "manifestArtifactId": "ec48bddf-c6b6-4888-b4e3-42b2f9c73076",
+      "moniker": {
+        "app": "kubernetes"
+      },
+      "name": "Deploy (Manifest)",
+      "refId": "1",
+      "relationships": {
+        "loadBalancers": [],
+        "securityGroups": []
+      },
+      "requiredArtifactIds": [
+        "ec48bddf-c6b6-4888-b4e3-42b2f9c73076"
+      ],
+      "requisiteStageRefIds": [],
+      "source": "artifact",
+      "type": "deployManifest"
+    }
+  ],
+  "triggers": [
+    {
+      "attributeConstraints": {},
+      "enabled": true,
+      "payloadConstraints": {
+        "value": "SUCCESS"
+      },
+      "type": "pubsub"
+    }
+  ],
+  "updateTs": "1568137903292"
+}
