@@ -24,7 +24,7 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: queryapp-env-vars
-              key: config-api-url
+              key: config_api_url
       restartPolicy: Always
 ---
 apiVersion: v1
