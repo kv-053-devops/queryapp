@@ -19,6 +19,12 @@ spec:
         image: eu.gcr.io/$PROJECT_ID/queryapp:$SHORT_SHA
         ports:
         - containerPort: 5003
+        env:
+        - name: CONFIG_API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: queryapp-env-vars
+              key: queryapp-config-api-url
       restartPolicy: Always
 ---
 apiVersion: v1
