@@ -1,13 +1,13 @@
 steps:
-# This step runs the unit tests on the app
 - name: 'python:3.6-alpine'
   id: Prepearing and running UnitTests
   entrypoint: /bin/sh
   args:
-  - -c
-  - 'pip install -r ./requirements.txt && python unit_test.py -v'
-  
-# This step builds the container image.
+  - '-c'
+  - 'apk update'
+  - 'apk add libpq-dev'
+  - 'python unit_test.py -v'
+
 - name: 'gcr.io/cloud-builders/docker'
   id: Build Docker Image
   args:
@@ -15,14 +15,6 @@ steps:
   - '-t'
   - 'eu.gcr.io/$PROJECT_ID/queryapp:$SHORT_SHA'
   - '.'
-
-# This step pushes the image to Container Registry
-- name: 'gcr.io/cloud-builders/docker'
-  id: Push Docker Image to c-registry
-  args:
-  - 'push'
-  - 'eu.gcr.io/$PROJECT_ID/queryapp:$SHORT_SHA'
-
 
 - name: 'comarada/envsubst'
   id: Prepare dev enviroment file
@@ -34,3 +26,5 @@ steps:
 - name: 'gcr.io/cloud-builders/gsutil'
   id: Push dev K8 manifest to GS bucket
   args: ['cp','ready_kub_dev.yaml','gs://$PROJECT_ID-spinnaker-conf/queryapp/ready_kub_dev.yaml']
+
+images: ['eu.gcr.io/$PROJECT_ID/queryapp:$SHORT_SHA']
