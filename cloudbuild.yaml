@@ -8,14 +8,21 @@ steps:
   - 'apk add libpq-dev'
   - 'python unit_test.py -v'
 
+#build
 - name: 'gcr.io/cloud-builders/docker'
-  id: Build Docker Image
   args:
-  - 'eu.gcr.io/$PROJECT_ID/queryapp:$SHORT_SHA'
+  - 'build' 
+  - '-t' 
+  - 'eu.gcr.io/$PROJECT_ID/query:$SHORT_SHA' 
   - '.'
+  
 - name: 'comarada/envsubst'
   id: Prepare dev enviroment file
   args: ['kub_dev.yaml']
+  env:
+    - 'PROJECT_ID=$PROJECT_ID'
+    - 'SHORT_SHA=$SHORT_SHA'
+    
 - name: 'gcr.io/cloud-builders/gsutil'
   id: Push dev K8 manifest to GS bucket
   args: ['cp','ready_kub_dev.yaml','gs://$PROJECT_ID-spinnaker-conf/queryapp/ready_kub_dev.yaml']
