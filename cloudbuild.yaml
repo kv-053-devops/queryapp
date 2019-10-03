@@ -1,13 +1,8 @@
 steps:
-# This step runs the unit tests on the app
 - name: 'python:3.6-alpine'
   id: Prepearing and running UnitTests
   entrypoint: /bin/sh
   args:
-  - -c
-  - 'pip install -r ./requirements.txt && python unit_test.py -v'
-
-# This step builds the container image.
   - '-c'
   - 'apk update'
   - 'apk add libpq-dev'
@@ -18,15 +13,6 @@ steps:
   args:
   - 'eu.gcr.io/$PROJECT_ID/queryapp:$SHORT_SHA'
   - '.'
-
-# This step pushes the image to Container Registry
-- name: 'gcr.io/cloud-builders/docker'
-  id: Push Docker Image to c-registry
-  args:
-  - 'push'
-  - 'eu.gcr.io/$PROJECT_ID/queryapp:$SHORT_SHA'
-
-
 - name: 'comarada/envsubst'
   id: Prepare dev enviroment file
   args: ['kub_dev.yaml']
