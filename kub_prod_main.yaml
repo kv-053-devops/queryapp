@@ -1,0 +1,90 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: queryapp-main
+  namespace: prod
+  labels:
+    app: queryapp
+    version: main
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: queryapp
+      version: main
+  template:
+    metadata:
+      labels:
+        app: queryapp
+        version: main
+    spec:
+      hostname: queryapp
+      containers:
+      - name: queryapp
+        image: eu.gcr.io/$PROJECT_ID/queryapp:$SHORT_SHA
+        ports:
+        - containerPort: 5003
+        env:
+        - name: APP_QUERY_URL
+          valueFrom:
+            configMapKeyRef:
+              name: queryapp-env-vars
+              key: app_query_url
+        - name: APP_SETTINGS_URL
+          valueFrom:
+            configMapKeyRef:
+              name: queryapp-env-vars
+              key: app_settings_url
+        - name: APP_SETTINGS_SAVE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: queryapp-env-vars
+              key: app_settings_save_url
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: queryapp-main
+  labels:
+    app: queryapp
+    version: main
+  namespace: prod
+spec:
+  ports:
+  - port: 5003
+    targetPort: 5003
+  selector:
+    app: queryapp
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: queryapp
+  namespace: prod
+spec:
+  host: queryapp-main
+  subsets:
+  - name: main
+    labels:
+      version: main
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: queryapp
+  namespace: prod
+spec:
+  hosts:
+  - "*"
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: queryapp-main.prod.svc.cluster.local
+        subset: main
+        port:
+          number: 5003
