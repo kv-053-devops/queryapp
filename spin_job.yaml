@@ -13,7 +13,7 @@ spec:
         - command:
             - bash
             - /opt/script/script.sh
-            - http://queryapp.dev.svc.cluster.local:5003/
+            - http://queryapp.dev.svc.cluster.local:5003
           image: tutum/curl
           name: script
           volumeMounts:
