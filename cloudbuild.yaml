@@ -17,6 +17,26 @@ steps:
   - '.'
 
 - name: 'comarada/envsubst'
+  id: Prepare yaml for main
+  args: ['kub_prod_main.yaml']
+  env:
+    - 'PROJECT_ID=$PROJECT_ID'
+    - 'SHORT_SHA=$SHORT_SHA'
+  
+- name: 'gcr.io/cloud-builders/gsutil'
+  args: ['cp','ready_kub_prod_main.yaml','gs://$PROJECT_ID-spinnaker-conf/queryapp/ready_kub_prod_main.yaml']
+  
+- name: 'comarada/envsubst'
+  id: Prepare yaml for canary
+  args: ['kub_prod_canary.yaml']
+  env:
+    - 'PROJECT_ID=$PROJECT_ID'
+    - 'SHORT_SHA=$SHORT_SHA'
+  
+- name: 'gcr.io/cloud-builders/gsutil'
+  args: ['cp','ready_kub_prod_canary.yaml','gs://$PROJECT_ID-spinnaker-conf/queryapp/ready_kub_prod_canary.yaml']
+
+- name: 'comarada/envsubst'
   id: Prepare dev enviroment file
   args: ['kub_dev.yaml']
   env:
@@ -26,5 +46,10 @@ steps:
 - name: 'gcr.io/cloud-builders/gsutil'
   id: Push dev K8 manifest to GS bucket
   args: ['cp','ready_kub_dev.yaml','gs://$PROJECT_ID-spinnaker-conf/queryapp/ready_kub_dev.yaml']
-
+  
+artifacts:
+  objects:
+    location: 'gs://$PROJECT_ID-spinnaker-conf/queryapp/'
+    paths: ['spin_job.yaml']
+    
 images: ['eu.gcr.io/$PROJECT_ID/queryapp:$SHORT_SHA']
