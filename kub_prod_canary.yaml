@@ -36,7 +36,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: queryapp-canary
+  name: queryapp
   labels:
     app: queryapp
     version: canary
@@ -77,13 +77,13 @@ spec:
         prefix: /
     route:
     - destination:
-        host: queryapp-main.prod.svc.cluster.local
+        host: queryapp.prod.svc.cluster.local
         subset: canary
         port:
           number: 5003
       weight: 10
     - destination:
-        host: queryapp-main.prod.svc.cluster.local
+        host: queryapp.prod.svc.cluster.local
         subset: main
         port:
           number: 5003
