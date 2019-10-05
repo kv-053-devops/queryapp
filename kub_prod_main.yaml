@@ -36,7 +36,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: queryapp-main
+  name: queryapp
   labels:
     app: queryapp
     version: main
@@ -74,7 +74,7 @@ spec:
         prefix: /
     route:
     - destination:
-        host: queryapp-main.prod.svc.cluster.local
+        host: queryapp.prod.svc.cluster.local
         subset: main
         port:
           number: 5003
