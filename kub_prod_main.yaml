@@ -54,7 +54,7 @@ metadata:
   name: queryapp
   namespace: prod
 spec:
-  host: queryapp-main
+  host: queryapp
   subsets:
   - name: main
     labels:
