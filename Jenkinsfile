@@ -95,7 +95,7 @@ spec:
 } 
         stage('Push container') {
       steps {
-        container('docker') {
+        container('docker-build') {
           sh "cat /tmp/gcr/jenkins-gcr.json | docker login -u _json_key --password-stdin https://eu.gcr.io";
           sh '''docker push eu.gcr.io/${PROJECT}/${APP_NAME}:${GIT_COMMIT}''';
 			// script {
